@@ -1,0 +1,8 @@
+{
+  "name": "app innovacion",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "ca8b235e"
+}
