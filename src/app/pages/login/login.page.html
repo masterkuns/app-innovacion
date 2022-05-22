@@ -1,9 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<ion-header></ion-header>
+<ion-content [scrollY]="false" [fullscreen]="true">
+  <div id="container">
+    <ion-img src="assets/img/logo.png"></ion-img>
+    <ion-list>
+        <div>
+            <ion-input placeholder="usuario" class="input" clearInput></ion-input>
+        </div>
+        <div>
+            <ion-input placeholder="contraseña" type="password" class="input" clearInput></ion-input>
+        </div>
+        <div>
+          <ion-label>Olvido su contraseña?</ion-label>
+        </div>
+        <div>
+          <ion-button expand="block" class="button-text-color">Login</ion-button>
+        </div>
+        <div>
+          <ion-button expand="block" class="button-text-color">Registro</ion-button>
+        </div>
+        <div>
+          <ion-label>Terminos y condiciones</ion-label>
+        </div>
+    </ion-list>
+  </div>
 </ion-content>

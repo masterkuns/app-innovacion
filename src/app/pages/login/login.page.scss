@@ -1,0 +1,23 @@
+#container {
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.scroll {
+    height: 100%;
+}
+
+.input {
+    width: 100%;
+    height: 50px;
+    background-color: #C4C4C4;
+    border-radius: 10px;
+    margin-bottom: 5px;
+}
+
+.button-text-color {
+    color: #FFFFFF;
+    font-weight: bold;
+}
