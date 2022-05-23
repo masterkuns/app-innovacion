@@ -2,25 +2,28 @@
 <ion-content [scrollY]="false" [fullscreen]="true">
   <div id="container">
     <ion-img src="assets/img/logo.png"></ion-img>
-    <ion-list>
-        <div>
-            <ion-input placeholder="usuario" class="input" clearInput></ion-input>
+    <form [formGroup]="credentials" (ngSubmit)="login()">
+      <ion-list>
+        <div class="form-section">
+          <ion-input placeholder="usuario" class="input" clearInput formControlName="username"></ion-input>
         </div>
-        <div>
-            <ion-input placeholder="contraseña" type="password" class="input" clearInput></ion-input>
+        <div class="form-section">
+          <ion-input placeholder="contraseña" type="password" class="input" clearInput formControlName="password"></ion-input>
         </div>
-        <div>
+        <div class="recover-password-section">
           <ion-label>Olvido su contraseña?</ion-label>
         </div>
-        <div>
-          <ion-button expand="block" class="button-text-color">Login</ion-button>
+        <div class="form-section">
+          <ion-button expand="block" class="button-text-color" type="submit" [disabled]="!credentials.valid">Login</ion-button>
         </div>
-        <div>
-          <ion-button expand="block" class="button-text-color">Registro</ion-button>
+        <div class="form-section">
+          <ion-button expand="block" class="button-text-color" type="button" (click)="register()">Registro</ion-button>
         </div>
-        <div>
+        <div class="terms-conditions-section">
           <ion-label>Terminos y condiciones</ion-label>
         </div>
-    </ion-list>
+      </ion-list>
+    </form>
+
   </div>
 </ion-content>

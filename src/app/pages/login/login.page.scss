@@ -15,6 +15,22 @@
     background-color: #C4C4C4;
     border-radius: 10px;
     margin-bottom: 5px;
+    padding-left: 10px !important;
+}
+
+.form-section {
+    margin-top: 50px;
+}
+
+.terms-conditions-section {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.recover-password-section {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .button-text-color {
