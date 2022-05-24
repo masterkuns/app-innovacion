@@ -14,16 +14,16 @@
           <ion-label>Olvido su contraseña?</ion-label>
         </div>
         <div class="form-section">
-          <ion-button expand="block" class="button-text-color" type="submit" [disabled]="!credentials.valid">Login</ion-button>
+          <ion-button expand="block" class="button-text-color" type="submit" [disabled]="!credentials.valid">Ingresar</ion-button>
         </div>
         <div class="form-section">
-          <ion-button expand="block" class="button-text-color" type="button" (click)="register()">Registro</ion-button>
+          <!-- <ion-button expand="block" class="button-text-color" type="button" (click)="register()">Registro</ion-button> -->
+          <ion-button expand="block" class="button-text-color" type="button" [routerLink]="['/registration']">Registrar</ion-button>
         </div>
         <div class="terms-conditions-section">
           <ion-label>Terminos y condiciones</ion-label>
         </div>
       </ion-list>
     </form>
-
   </div>
 </ion-content>
