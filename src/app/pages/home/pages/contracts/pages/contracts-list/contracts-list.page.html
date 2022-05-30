@@ -5,7 +5,6 @@
     </div>
   </ion-toolbar>
   <ion-toolbar>
-    <!-- <ion-searchbar placeholder="Buscar contrato" clearInput (keyup)="filter($event)"></ion-searchbar> -->
     <ion-searchbar placeholder="Buscar contrato" clearInput (ionChange)="filter($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
@@ -28,7 +27,7 @@
           </div>
           <div class="list-section-buttons">
             <div>
-              <ion-button class="button-text-color-primary" type="button">Ver</ion-button>
+              <ion-button class="button-text-color-primary" type="button" [routerLink]="['../',contract.id]">Ver</ion-button>
             </div>
             <div>
               <ion-button class="button-text-color-secondary" color="light" type="button">Anular</ion-button>
@@ -37,7 +36,6 @@
         </div>
       </ion-item>
     </ion-list>
-
     <div>
       <ion-button expand="block" color="light" class="button-text-color-primary" type="button" [routerLink]="['/home/contracts']">Regresar
       </ion-button>

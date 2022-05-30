@@ -15,6 +15,10 @@ const routes: Routes = [
   {
     path: 'list',
     loadChildren: () => import('./pages/contracts-list/contracts-list.module').then( m => m.ContractsListPageModule)
+  },
+  {
+    path: ':id',
+    loadChildren: () => import('./pages/contracts-view/contracts-view.module').then( m => m.ContractsViewPageModule)
   }
 ];
 

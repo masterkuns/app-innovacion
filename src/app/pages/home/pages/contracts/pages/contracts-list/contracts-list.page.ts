@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { ContractService } from '../../../../../../services';
 
@@ -13,9 +12,8 @@ export class ContractsListPage implements OnInit {
   searchContract: any;
 
   constructor(
-    private loadingController: LoadingController,
-    private alertController: AlertController,
-    private router: Router,
+    private _loadingController: LoadingController,
+    private _alertController: AlertController,
     private _contractServices: ContractService,
   ) { }
 
@@ -24,7 +22,7 @@ export class ContractsListPage implements OnInit {
   }
 
   async getAll(): Promise<void> {
-    const loading = await this.loadingController.create();
+    const loading = await this._loadingController.create();
     await loading.present();
 
     await this._contractServices.getAll().then(firebaseResponse => {

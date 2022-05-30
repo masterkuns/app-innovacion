@@ -29,12 +29,9 @@ export class ContractService {
 
   async getById(id) {
     try {
-      const contracts = await new Promise<any>((resolve) => {
-        this._afs.collection('contracts').valueChanges({ idField: id }).subscribe(users => resolve(users));
-      })
-      return contracts;
+      return await this._afs.collection('contracts').doc(id).get();
     } catch (error) {
-      return null;
+      console.log("error en: getById ", error)
     }
   }
 
