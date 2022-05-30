@@ -17,29 +17,26 @@ export class ContractsViewPage implements OnInit {
     private _loadingController: LoadingController,
     private _alertController: AlertController,
     private _contractServices: ContractService,
-    ) { }
-    //traer los contracts por id de firebase
+
+    ) {this.contract = {}; }
 
   ngOnInit() {
-    this.id = this._ar.snapshot.paramMap.get('id');
-    this.getContractById(this.id);
+    this.id = this._ar.snapshot.paramMap.get("id");
+    this.getById();
   }
 
-  async getContractById(id) {
-    const loading = await this._loadingController.create({
-      message: 'Loading...'
-    });
+  async getById(): Promise<void> {
+    const loading = await this._loadingController.create();
     await loading.present();
-    (await this._contractServices.getById(id)).subscribe(
-      (data) => {
-        this.contract = data.data();
-        loading.dismiss();
-        
-      },
-      (error) => {
-        console.log(error);
-        loading.dismiss();
-      }
-    );
+
+    await this._contractServices.getById(this.id).then(firebaseResponse => {
+      firebaseResponse.subscribe(contractRef => {
+        this.contract = contractRef.data();
+        this.contract['id'] = contractRef.id;
+        console.log(this.contract);
+      });
+    });
+    await loading.dismiss();
+    console.log(this.contract.name);
   }
 }
