@@ -1,9 +1,32 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Menu Principal</ion-title> 
+    <div class="title">
+      <ion-title>Menu Principal</ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [scrollY]="false" [fullscreen]="true">
-  <ion-button expand="block" color="danger" class="button-text-color" type="button" (click)="logout()">Cerrar Sesion</ion-button>
+  <div id="container">
+    <div>
+      <ion-img src="assets/img/logo.png"></ion-img>
+    </div>
+    <div id="options-container">
+      <div>
+        <ion-button expand="block" class="button-text-color-primary" type="button" [routerLink]="['/home/contracts']">Contratos
+        </ion-button>
+        <ion-button expand="block" class="button-text-color-primary" type="button" [routerLink]="['/home/users']">Usuarios
+        </ion-button>
+        <ion-button expand="block" class="button-text-color-primary" type="button" [routerLink]="['/registration']">Editar
+          Perfil
+        </ion-button>
+      </div>
+      <div>
+        <ion-button expand="block" color="danger" class="button-text-color-primary" type="button" (click)="logout()">Cerrar
+          Sesion
+        </ion-button>
+      </div>
+    </div>
+
+  </div>
 </ion-content>

@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="title">
+      <ion-title>Lista de contratos</ion-title>
+    </div>
+  </ion-toolbar>
+  <ion-toolbar>
+    <!-- <ion-searchbar placeholder="Buscar contrato" clearInput (keyup)="filter($event)"></ion-searchbar> -->
+    <ion-searchbar placeholder="Buscar contrato" clearInput (ionChange)="filter($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <ion-list>
+    <ion-list-header>
+      <ion-label>contrato</ion-label>
+      <ion-label>nombre</ion-label>
+      <ion-label>opciones</ion-label>
+    </ion-list-header>
+      <ion-item *ngFor="let contract of searchContract">
+        <div class="data-list">
+          <div>
+            <ion-label>{{contract.id_contract}}</ion-label>
+          </div>
+          <div>
+            <ion-label>{{contract.name}}</ion-label>
+          </div>
+          <div class="list-section-buttons">
+            <div>
+              <ion-button class="button-text-color-primary" type="button">Ver</ion-button>
+            </div>
+            <div>
+              <ion-button class="button-text-color-secondary" color="light" type="button">Anular</ion-button>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+
+    <div>
+      <ion-button expand="block" color="light" class="button-text-color-primary" type="button" [routerLink]="['/home/contracts']">Regresar
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

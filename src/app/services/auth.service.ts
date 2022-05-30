@@ -8,7 +8,7 @@ export class AuthService {
 
   constructor(private auth: Auth) { }
 
-  async register({username, password}) {
+  public async register({username, password}) {
     try {
       const user = await createUserWithEmailAndPassword(this.auth, username, password);
       return user;
@@ -17,7 +17,7 @@ export class AuthService {
     }
   }
 
-  async login({username, password}) {
+  public async login({username, password}) {
     try {
       const user = await signInWithEmailAndPassword(this.auth, username, password);
       return user;
@@ -26,7 +26,7 @@ export class AuthService {
     }
   }
 
-  logout() {
+  public logout() {
     return signOut(this.auth);
   }
 }

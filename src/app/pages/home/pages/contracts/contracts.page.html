@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="title">
+      <ion-title>Contratos</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [scrollY]="false" [fullscreen]="true">
+  <div id="container">
+    <div id="options-container">
+      <div>
+        <ion-button expand="block" class="button-text-color-primary" type="button" [routerLink]="['/home/contracts/form']">Nuevo contrato
+        </ion-button>
+        <ion-button expand="block" class="button-text-color-primary" type="button" [routerLink]="['/home/contracts/list']">Lista de contratos
+        </ion-button>
+      </div>
+      <div>
+        <ion-button expand="block" color="light" class="button-text-color-primary" type="button" [routerLink]="['/home']">Menu principal
+        </ion-button>
+      </div>
+    </div>
+  </div>
+</ion-content>

@@ -20,14 +20,14 @@ export class RegistrationPage implements OnInit {
     private router: Router
   ) { }
 
-  ngOnInit() {
+  public ngOnInit() {
     this.registrationForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(5)]]
     })
   }
 
-  async register() {
+  public async register() : Promise<void> {
     const loading = await this.loadingController.create();
     await loading.present();
 
@@ -42,7 +42,7 @@ export class RegistrationPage implements OnInit {
     }
   }
 
-  async showAlert(header, message) {
+  public async showAlert(header, message) {
     const alert = await this.alertController.create({
       header,
       message,

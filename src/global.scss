@@ -24,3 +24,55 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+/*** custom css here *************/
+body {
+    font-size: clamp(1.5rem, 8vm - 2rem, 3rem);
+}
+
+/* title style */
+.title {
+    margin: 0 auto;
+}
+
+/* input style */
+.input {
+    width: 100%;
+    height: 50px;
+    background-color: #C4C4C4;
+    border-radius: 10px;
+    margin-bottom: 5px;
+    padding-left: 20px !important;
+}
+
+.form-section {
+    margin-top: 50px;
+}
+
+.form-section-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    margin-top: 50px;
+}
+
+/* button style */
+.button-text-color-primary {
+    color: #FFFFFF;
+    font-weight: bold;
+}
+
+/* section list */
+.data-list {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-section-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}

@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <div class="title">
+      <ion-title>{{title}}</ion-title>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div id="container">
+        <form [formGroup]="contractsForm">
+          <ion-list>
+            <div class="form-section">
+              <ion-input placeholder="Número de contrato" class="input" clearInput formControlName="id_contract"></ion-input>
+            </div>
+                        <div class="form-section">
+                          <ion-input placeholder="Número de documento" class="input" clearInput formControlName="id_document"></ion-input>
+                        </div>
+                        <div class="form-section">
+                          <ion-input placeholder="Nombre" class="input" clearInput formControlName="name"></ion-input>
+                        </div>
+                        <div class="form-section">
+                          <ion-input placeholder="Apellido" class="input" clearInput formControlName="lastname"></ion-input>
+                        </div>
+            <div class="form-section">
+                  <ion-select [compareWith]="compareWith" class="input" placeholder="Estado del contrato" formControlName="state">
+                    <ion-select-option *ngFor="let state of _states" [value]="state">{{state}}</ion-select-option>
+                  </ion-select>
+            </div>
+            <div class="form-section">
+              <ion-input placeholder="Modalidad del contrato" class="input" clearInput formControlName="modality"></ion-input>
+            </div>
+            <div class="form-section">
+              <ion-input placeholder="Tipo de contrato" class="input" clearInput formControlName="type"></ion-input>
+            </div>
+            <div class="form-section">
+              <ion-input placeholder="Fin del contrato" class="input" clearInput formControlName="expire" (click)="selectDate()" ngModel="{{_selectedDate}}"></ion-input>
+            </div> 
+            <div class="form-section-buttons">
+              <div>
+                <ion-button class="button-text-color-primary" type="submit" [disabled]="!contractsForm.valid" (click)="create()">Registrar</ion-button>
+              </div>
+              <div>
+                <ion-button class="button-text-color-secondary" color="light" type="button" [routerLink]="['/home/contracts']">Regresar</ion-button>
+              </div>
+            </div>
+          </ion-list>
+        </form>
+  </div>
+</ion-content>

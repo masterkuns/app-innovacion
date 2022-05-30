@@ -7,6 +7,14 @@ const routes: Routes = [
   {
     path: '',
     component: HomePage
+  },
+  {
+    path: 'contracts',
+    loadChildren: () => import('./pages/contracts/contracts.module').then( m => m.ContractsPageModule)
+  },
+  {
+    path: 'users',
+    loadChildren: () => import('./pages/users/users.module').then( m => m.UsersPageModule)
   }
 ];
 
