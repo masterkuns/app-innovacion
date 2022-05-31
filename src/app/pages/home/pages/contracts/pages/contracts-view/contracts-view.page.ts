@@ -37,6 +37,6 @@ export class ContractsViewPage implements OnInit {
       });
     });
     await loading.dismiss();
-    console.log(this.contract.name);
+    //console.log(this.contract.name);
   }
 }

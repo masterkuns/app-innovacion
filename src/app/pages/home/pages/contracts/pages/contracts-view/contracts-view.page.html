@@ -11,12 +11,54 @@
     <ion-list>
       <ion-item>
         <div class="data-list">
-          <div>
-            <ion-label>Contrato: {{contract.name}}</ion-label>  --> 
-            <ion-label>Contrato: </ion-label>
-          </div>
+          <ion-label><b>Contrato:</b> {{contract.id_contract}}</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="data-list">
+          <ion-label><b>Numero de documento:</b> {{contract.id_document}}</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="data-list">
+          <ion-label><b>Nombre:</b> {{contract.name}}</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="data-list">
+          <ion-label><b>Apellido:</b> {{contract.lastname}}</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="data-list">
+          <ion-label><b>Estado del contrato:</b> {{contract.state}}</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="data-list">
+          <ion-label><b>Modalidad de contrato:</b> {{contract.modality}}</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="data-list">
+          <ion-label><b>Tipo de contrato:</b> {{contract.type}}</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="data-list">
+          <ion-label><b>Fin del contrato:</b> {{contract.expire}}</ion-label>
         </div>
       </ion-item>
     </ion-list>
+    <div class="form-section-buttons">
+      <div>
+        <ion-button class="button-text-color-primary" type="submit" [routerLink]="['/home/contracts']">Editar
+        </ion-button>
+      </div>
+      <div>
+        <ion-button class="button-text-color-secondary" color="light" type="button"
+          [routerLink]="['/home/contracts/list']">Regresar</ion-button>
+      </div>
+    </div>
   </div>
 </ion-content>
