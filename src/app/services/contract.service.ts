@@ -35,14 +35,7 @@ export class ContractService {
     }
   }
 
-  async delete(id) {
-    try {
-      const contracts = await new Promise<any>((resolve) => {
-        this._afs.collection('contracts').valueChanges({ idField: 'id' }).subscribe(users => resolve(users));
-      })
-      return contracts;
-    } catch (error) {
-      return null;
-    }
+  async update(id: string, data: any): Promise<any> {
+    return this._afs.collection('contracts').doc(id).update(data);
   }
 }

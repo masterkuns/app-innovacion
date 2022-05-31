@@ -13,15 +13,15 @@
             <div class="form-section">
               <ion-input placeholder="Número de contrato" class="input" clearInput formControlName="id_contract"></ion-input>
             </div>
-                        <div class="form-section">
-                          <ion-input placeholder="Número de documento" class="input" clearInput formControlName="id_document"></ion-input>
-                        </div>
-                        <div class="form-section">
-                          <ion-input placeholder="Nombre" class="input" clearInput formControlName="name"></ion-input>
-                        </div>
-                        <div class="form-section">
-                          <ion-input placeholder="Apellido" class="input" clearInput formControlName="lastname"></ion-input>
-                        </div>
+            <div class="form-section">
+              <ion-input placeholder="Número de documento" class="input" clearInput formControlName="id_document"></ion-input>
+            </div>
+            <div class="form-section">
+              <ion-input placeholder="Nombre" class="input" clearInput formControlName="name"></ion-input>
+            </div>
+            <div class="form-section">
+              <ion-input placeholder="Apellido" class="input" clearInput formControlName="lastname"></ion-input>
+            </div>
             <div class="form-section">
                   <ion-select [compareWith]="compareWith" class="input" placeholder="Estado del contrato" formControlName="state">
                     <ion-select-option *ngFor="let state of _states" [value]="state">{{state}}</ion-select-option>
@@ -38,7 +38,7 @@
             </div> 
             <div class="form-section-buttons">
               <div>
-                <ion-button class="button-text-color-primary" type="submit" [disabled]="!contractsForm.valid" (click)="create()">Registrar</ion-button>
+                <ion-button class="button-text-color-primary" type="submit" [disabled]="!contractsForm.valid" (click)="contractFormFunctions()">Registrar</ion-button>
               </div>
               <div>
                 <ion-button class="button-text-color-secondary" color="light" type="button" [routerLink]="['/home/contracts']">Regresar</ion-button>

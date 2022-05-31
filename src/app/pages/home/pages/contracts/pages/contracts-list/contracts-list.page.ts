@@ -15,6 +15,8 @@ export class ContractsListPage implements OnInit {
     private _loadingController: LoadingController,
     private _alertController: AlertController,
     private _contractServices: ContractService,
+    private loadingController: LoadingController,
+    private alertController: AlertController,
   ) { }
 
   ngOnInit() {
@@ -52,5 +54,38 @@ export class ContractsListPage implements OnInit {
        return (contract.id_contract.toLowerCase().indexOf(keyword.toLowerCase()) > -1);
      });
    }
+  }
+
+  async cancel(id: string) {
+    console.clear();
+    console.log(id);
+    let contract: any;
+
+    const loading = await this._loadingController.create();
+    await loading.present();
+
+    await this._contractServices.getById(id).then(firebaseResponse => {
+      firebaseResponse.subscribe(contractRef => {
+        contract = contractRef.data();
+        contract['id'] = contractRef.id;
+        contract.state = 'Anulado';
+      });
+    }); 
+    loading.dismiss();
+    
+    await loading.present();
+    this._contractServices.update(id, contract).then(() => {
+      loading.dismiss();
+      this.showAlert('', 'Contrato Anulado');
+    });
+  }
+
+  public async showAlert(header, message) {
+    const alert = await this.alertController.create({
+      header,
+      message,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 }

@@ -19,7 +19,11 @@ const routes: Routes = [
   {
     path: ':id',
     loadChildren: () => import('./pages/contracts-view/contracts-view.module').then( m => m.ContractsViewPageModule)
-  }
+  },
+  {
+    path: 'edit/:id',
+    loadChildren: () => import('./pages/contracts-form/contracts-form.module').then(m => m.ContractsFormPageModule)
+  },
 ];
 
 @NgModule({

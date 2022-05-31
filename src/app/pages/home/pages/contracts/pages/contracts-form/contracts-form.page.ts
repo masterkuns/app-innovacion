@@ -5,6 +5,7 @@ import { AlertController, LoadingController } from '@ionic/angular';
 import { PickerController } from '@ionic/angular';
 import { ContractService } from '../../../../../../services';
 import { Contract } from '../../../../../../models';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-contracts-form',
@@ -13,8 +14,8 @@ import { Contract } from '../../../../../../models';
 })
 export class ContractsFormPage implements OnInit {
   title: string;
-  editable: boolean;
   contractsForm: FormGroup;
+  id: string | null;
   private _states: string[] = ['Celebrado', 'Anulado', 'Liquidar', 'Rechazado', 'Terminado', 'Terminación anticipada'];
   multiColumnOptions = [
     ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
@@ -31,9 +32,9 @@ export class ContractsFormPage implements OnInit {
     private router: Router,
     private pc: PickerController,
     private _contractServices: ContractService,
+    private _ar: ActivatedRoute,
   ) {
     this.title = 'Nuevo contrato';
-    this.editable = false;
   }
 
   ngOnInit() {
@@ -46,7 +47,9 @@ export class ContractsFormPage implements OnInit {
       modality: ['', [Validators.required]],
       type: ['', [Validators.required]],
       expire: ['', [Validators.required]],
-    })
+    });
+    this.id = this._ar.snapshot.paramMap.get("id");
+    this.getContract();
   }
 
   async selectDate(numColumns = 3, numOptions = 31, columnOptions = this.multiColumnOptions) {
@@ -107,6 +110,14 @@ export class ContractsFormPage implements OnInit {
     await alert.present();
   }
 
+  contractFormFunctions(): void {
+    if (this.id === null) {
+      this.create();
+    } else {
+      this.edit(this.id);
+    }
+  }
+
   async create(): Promise<void> {
     //console.log(this.contractsForm.value);
     const loading = await this.loadingController.create();
@@ -133,5 +144,49 @@ export class ContractsFormPage implements OnInit {
     } else {
       this.showAlert('Registro fallido', 'por favor intentalo nuevamente');
     }
+  }
+
+  async getContract(): Promise<void> {
+    if (this.id != null) {
+      const loading = await this.loadingController.create();
+      await loading.present();
+      this.title = 'Editar contrato';
+      await this._contractServices.getById(this.id).then(firebaseResponse => {
+        firebaseResponse.subscribe(contractRef => {
+          this.contractsForm.setValue({
+            id_contract: contractRef.data()['id_contract'],
+            name: contractRef.data()['name'],
+            lastname: contractRef.data()['lastname'],
+            id_document: contractRef.data()['id_document'],
+            state: contractRef.data()['state'],
+            modality: contractRef.data()['modality'],
+            type: contractRef.data()['type'],
+            expire: contractRef.data()['expire'],
+          });
+        });
+      });
+      await loading.dismiss();
+    }else {
+      this.title = 'Nuevo contrato';
+    }
+  }
+
+  async  edit(id: string) {
+    const CONTRACT: any = {
+      id_contract: this.contractsForm.value.id_contract,
+      name: this.contractsForm.value.name,
+      lastname: this.contractsForm.value.lastname,
+      id_document: this.contractsForm.value.id_document,
+      state: this.contractsForm.value.state,
+      modality: this.contractsForm.value.modality,
+      type: this.contractsForm.value.type,
+      expire: this.contractsForm.value.expire,   
+    };
+    const loading = await this.loadingController.create();
+    await loading.present();
+    this._contractServices.update(id, CONTRACT).then(() => {
+      loading.dismiss();
+      this.router.navigateByUrl('/home/contracts/list', { replaceUrl: true });
+    });
   }
 }

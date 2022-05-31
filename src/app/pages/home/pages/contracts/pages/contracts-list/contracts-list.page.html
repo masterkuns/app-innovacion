@@ -30,7 +30,7 @@
               <ion-button class="button-text-color-primary" type="button" [routerLink]="['../',contract.id]">Ver</ion-button>
             </div>
             <div>
-              <ion-button class="button-text-color-secondary" color="light" type="button">Anular</ion-button>
+              <ion-button class="button-text-color-secondary" color="light" type="button" (click)="cancel(contract.id)">Anular</ion-button>
             </div>
           </div>
         </div>
