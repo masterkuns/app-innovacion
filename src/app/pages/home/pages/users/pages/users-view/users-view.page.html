@@ -1,9 +1,35 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>users-view</ion-title>
+    <div class="title">
+      <ion-title>Usuario: {{user.username}}</ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <ion-list>
+      <ion-item>
+        <div class="data-list">
+          <ion-label><b>Username:</b> {{user.username}}</ion-label>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="data-list">
+          <ion-label><b>Role:</b> {{user.role}}</ion-label>
+        </div>
+      </ion-item>
+    </ion-list>
+    <div class="form-section-buttons">
+      <div>
+        <ion-button class="button-text-color-primary" type="submit" [routerLink]="['/home/users/edit/', user.id]">
+          Editar
+        </ion-button>
+      </div>
+      <div>
+        <ion-button class="button-text-color-secondary" color="light" type="button" [routerLink]="['/home/users/list']">
+          Regresar</ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>

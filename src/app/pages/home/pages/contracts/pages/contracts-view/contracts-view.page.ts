@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { Observable } from 'rxjs';
+import { LoadingController } from '@ionic/angular';
 import { ContractService } from '../../../../../../services';
 
 @Component({
@@ -15,10 +14,10 @@ export class ContractsViewPage implements OnInit {
   constructor(
     private _ar: ActivatedRoute,
     private _loadingController: LoadingController,
-    private _alertController: AlertController,
     private _contractServices: ContractService,
-
-    ) {this.contract = {}; }
+    ) {
+      this.contract = {}; 
+    }
 
   ngOnInit() {
     this.id = this._ar.snapshot.paramMap.get("id");

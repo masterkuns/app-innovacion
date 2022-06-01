@@ -14,9 +14,10 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UsersFormPage implements OnInit {
   title: string;
+  titleButton: string;
   userForm: FormGroup;
   id: string | null;
-  roles: string[] = ['Adminitrador', 'Usuario'];
+  roles: string[] = ['Administrador', 'Usuario'];
 
   constructor(
     private fb: FormBuilder,
@@ -27,6 +28,7 @@ export class UsersFormPage implements OnInit {
     private _ar: ActivatedRoute,
   ) { 
     this.title = 'Nuevo usuario';
+    this.titleButton= 'Registrar';
   }
 
   ngOnInit() {
@@ -36,6 +38,7 @@ export class UsersFormPage implements OnInit {
       role: ['', [Validators.required]],
     });
     this.id = this._ar.snapshot.paramMap.get("id");
+    this.getUser();
   }
 
   async showAlert(header, message) {
@@ -77,6 +80,41 @@ export class UsersFormPage implements OnInit {
     }
   }
 
-  async edit(id: string) {}
+  async getUser(): Promise<void> {
+    if (this.id != null) {
+      const loading = await this.loadingController.create();
+      await loading.present();
+      this.title = 'Editar usuario';
+      this.titleButton = 'Editar';
+      await this._userServices.getById(this.id).then(firebaseResponse => {
+        firebaseResponse.subscribe(contractRef => {
+          this.userForm.setValue({
+            username: contractRef.data()['username'],
+            password: contractRef.data()['password'],
+            role: contractRef.data()['role'],
+          });
+        });
+      });
+      await loading.dismiss();
+    } else {
+      this.title = 'Nuevo usuario';
+      this.titleButton = 'Registar';
+    }
+  }
+
+  async edit(id: string) {
+    const USER: User = {
+      username: this.userForm.value.username,
+      password: this.userForm.value.password,
+      role: this.userForm.value.role,
+    };
+    console.log(USER);
+    const loading = await this.loadingController.create();
+    await loading.present();
+    this._userServices.update(id, USER).then(() => {
+      loading.dismiss();
+      this.router.navigateByUrl('/home/users/list', { replaceUrl: true });
+    });
+  }
 
 }

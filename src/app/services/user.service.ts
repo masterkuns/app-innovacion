@@ -36,6 +36,6 @@ export class UserService {
   }
 
   async update(id: string, data: any): Promise<any> {
-    return this._afs.collection('contracts').doc(id).update(data);
+    return this._afs.collection('users').doc(id).update(data);
   }
 }
