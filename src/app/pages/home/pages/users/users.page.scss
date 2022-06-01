@@ -1,0 +1,17 @@
+#container {
+    padding: 30px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    #options-container {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+}
+
+.scroll {
+    height: 100%;
+}
