@@ -1,9 +1,47 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>users-list</ion-title>
+    <div class="title">
+      <ion-title>Lista de usuarios</ion-title>
+    </div>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar placeholder="Buscar usuario" clearInput (ionChange)="filter($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <ion-list>
+      <ion-list-header>
+        <ion-label>usuario</ion-label>
+        <ion-label>rol</ion-label>
+        <ion-label>opciones</ion-label>
+      </ion-list-header>
+      <ion-item *ngFor="let user of searchUser">
+        <div class="data-list">
+          <div>
+            <ion-label>{{user.username}}</ion-label>
+          </div>
+          <div>
+            <ion-label>{{user.role}}</ion-label>
+          </div>
+          <div class="list-section-buttons">
+            <div>
+              <ion-button class="button-text-color-primary" type="button" [routerLink]="['../',user.id]">Ver
+              </ion-button>
+            </div>
+            <div>
+              <ion-button class="button-text-color-secondary" color="light" type="button" (click)="cancel(user.id)">
+                Permisos</ion-button>
+            </div>
+          </div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <div>
+      <ion-button expand="block" color="light" class="button-text-color-primary" type="button"
+        [routerLink]="['/home/contracts']">Regresar
+      </ion-button>
+    </div>
+  </div>
 </ion-content>

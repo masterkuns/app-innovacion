@@ -15,8 +15,6 @@ export class ContractsListPage implements OnInit {
     private _loadingController: LoadingController,
     private _alertController: AlertController,
     private _contractServices: ContractService,
-    private loadingController: LoadingController,
-    private alertController: AlertController,
   ) { }
 
   ngOnInit() {
@@ -81,7 +79,7 @@ export class ContractsListPage implements OnInit {
   }
 
   public async showAlert(header, message) {
-    const alert = await this.alertController.create({
+    const alert = await this._alertController.create({
       header,
       message,
       buttons: ['OK'],

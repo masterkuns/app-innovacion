@@ -171,7 +171,7 @@ export class ContractsFormPage implements OnInit {
     }
   }
 
-  async  edit(id: string) {
+  async edit(id: string) {
     const CONTRACT: any = {
       id_contract: this.contractsForm.value.id_contract,
       name: this.contractsForm.value.name,

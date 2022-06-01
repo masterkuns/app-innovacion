@@ -1,9 +1,38 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>users-form</ion-title>
+    <div class="title">
+      <ion-title>{{title}}</ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content [fullscreen]="true">
+  <div id="container">
+    <form [formGroup]="userForm">
+      <ion-list>
+        <div class="form-section">
+          <ion-input placeholder="usuario" class="input" clearInput formControlName="username"></ion-input>
+        </div>
+        <div class="form-section">
+          <ion-input placeholder="contraseña" type="password" class="input" clearInput formControlName="password">
+          </ion-input>
+        </div>
+        <div class="form-section">
+          <ion-select [compareWith]="compareWith" class="input" placeholder="Rol" formControlName="role">
+            <ion-select-option *ngFor="let role of roles" [value]="role">{{role}}</ion-select-option>
+          </ion-select>
+        </div>
+        <div class="form-section-buttons">
+          <div>
+            <ion-button class="button-text-color-primary" type="submit" [disabled]="!userForm.valid"
+              (click)="userFormFunctions()">Registrar</ion-button>
+          </div>
+          <div>
+            <ion-button class="button-text-color-secondary" color="light" type="button"
+              [routerLink]="['/home/users']">Regresar</ion-button>
+          </div>
+        </div>
+      </ion-list>
+    </form>
+  </div>
 </ion-content>
