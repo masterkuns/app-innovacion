@@ -10,10 +10,11 @@
   <div id="container">
     <div id="options-container">
       <div>
-        <ion-button expand="block" class="button-text-color-primary" type="button" [routerLink]="['/home/contracts/form']">Nuevo contrato
-        </ion-button>
-        <ion-button expand="block" class="button-text-color-primary" type="button" [routerLink]="['/home/contracts/list']">Lista de contratos
-        </ion-button>
+        <div *ngIf="getRole(); else admin"></div>
+        <ng-template #admin>
+          <ion-button expand="block" class="button-text-color-primary" type="button" [routerLink]="['/home/contracts/form']">Nuevo contrato</ion-button>
+        </ng-template>
+        <ion-button expand="block" class="button-text-color-primary" type="button" [routerLink]="['/home/contracts/list']">Lista de contratos</ion-button>
       </div>
       <div>
         <ion-button expand="block" color="light" class="button-text-color-primary" type="button" [routerLink]="['/home']">Menu principal

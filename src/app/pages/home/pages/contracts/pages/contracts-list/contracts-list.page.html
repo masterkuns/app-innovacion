@@ -13,9 +13,11 @@
   <div id="container">
     <ion-list>
     <ion-list-header>
-      <ion-label>contrato</ion-label>
-      <ion-label>nombre</ion-label>
-      <ion-label>opciones</ion-label>
+      <div class="data-list">
+        <ion-label>contrato</ion-label>
+        <ion-label>nombre</ion-label>
+        <ion-label>opciones</ion-label>
+      </div>
     </ion-list-header>
       <ion-item *ngFor="let contract of searchContract">
         <div class="data-list">
@@ -30,7 +32,10 @@
               <ion-button class="button-text-color-primary" type="button" [routerLink]="['../',contract.id]">Ver</ion-button>
             </div>
             <div>
-              <ion-button class="button-text-color-secondary" color="light" type="button" (click)="cancel(contract.id)">Anular</ion-button>
+              <div *ngIf="getRole(); else admin"></div>
+              <ng-template #admin>
+                <ion-button class="button-text-color-secondary" color="light" type="button" (click)="cancel(contract.id)">Anular</ion-button>
+              </ng-template>
             </div>
           </div>
         </div>

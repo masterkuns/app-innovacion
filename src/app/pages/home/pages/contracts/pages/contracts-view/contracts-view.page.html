@@ -50,15 +50,24 @@
         </div>
       </ion-item>
     </ion-list>
-    <div class="form-section-buttons">
+    <div *ngIf="getRole(); else admin">
       <div>
-        <ion-button class="button-text-color-primary" type="submit" [routerLink]="['/home/contracts/edit/', contract.id]">Editar
-        </ion-button>
-      </div>
-      <div>
-        <ion-button class="button-text-color-secondary" color="light" type="button"
-          [routerLink]="['/home/contracts/list']">Regresar</ion-button>
+        <ion-button expand="block" class="button-text-color-secondary" color="light" type="button" [routerLink]="['/home/contracts/list']">Regresar</ion-button>
       </div>
     </div>
+      <ng-template #admin>
+        <div class="form-section-buttons">
+          <div>
+            <ion-button class="button-text-color-primary" type="submit"
+              [routerLink]="['/home/contracts/edit/', contract.id]">
+              Editar</ion-button>
+          </div>
+          <div>
+            <ion-button class="button-text-color-secondary" color="light" type="button"
+              [routerLink]="['/home/contracts/list']">
+              Regresar</ion-button>
+          </div>
+        </div>
+    </ng-template>
   </div>
 </ion-content>

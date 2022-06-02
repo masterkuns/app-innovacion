@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { ContractService } from '../../../../../../services';
+import { ContractService, UserService, AuthService } from '../../../../../../services';
 
 @Component({
   selector: 'app-contracts-list',
@@ -10,12 +10,23 @@ import { ContractService } from '../../../../../../services';
 export class ContractsListPage implements OnInit {
   private _contractsList: any = [];
   searchContract: any;
+  role: string;
 
   constructor(
     private _loadingController: LoadingController,
     private _alertController: AlertController,
     private _contractServices: ContractService,
-  ) { }
+    private _userServices: UserService,
+    private _authServices: AuthService,
+  ) {
+    this._authServices.stateUser().then(resState => {
+      resState.subscribe(res => {
+        if (res) {
+          this.getDataUser(res.uid);
+        }
+      });
+    });
+   }
 
   ngOnInit() {
     this.getAll();
@@ -85,5 +96,26 @@ export class ContractsListPage implements OnInit {
       buttons: ['OK'],
     });
     await alert.present();
+  }
+
+  async getDataUser(uid: string) {
+    const loading = await this._loadingController.create();
+    await loading.present();
+    this._userServices.getById(uid).then(firebaseResponse => {
+      firebaseResponse.subscribe(userRef => {
+        this.role = userRef.data()['role'];
+        loading.dismiss();
+      }, () => {
+        loading.dismiss();
+      });
+    });
+  }
+
+  getRole(): boolean {
+    if (this.role == "Usuario") {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

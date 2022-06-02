@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AlertController, LoadingController } from '@ionic/angular';
-import { UserService } from 'src/app/services';
-import { AuthService } from 'src/app/services/auth.service';
+import { LoadingController } from '@ionic/angular';
+import { UserService, AuthService } from 'src/app/services';
 
 @Component({
   selector: 'app-home',
@@ -14,11 +13,10 @@ export class HomePage {
 
   constructor(
     private _loadingController: LoadingController,
-    private alertController: AlertController,
     private _authServices: AuthService,
     private _userServices: UserService,
     private _router: Router
-  ) { 
+  ) {  
       this._authServices.stateUser().then(resState => {
         resState.subscribe(res => {
           if (res) {
@@ -44,12 +42,14 @@ export class HomePage {
   async getDataUser(uid: string){
     const loading = await this._loadingController.create();
     await loading.present();
-    await this._userServices.getById(uid).then(firebaseResponse => {
+    this._userServices.getById(uid).then(firebaseResponse => {
       firebaseResponse.subscribe(userRef => {
         this.role = userRef.data()['role'];
+        loading.dismiss();
+      }, () => {
+        loading.dismiss();
       });
     });
-    await loading.dismiss();
   }
 
    getRole(): boolean {
@@ -59,5 +59,4 @@ export class HomePage {
       return false;
     }
   }
-
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { LoadingController } from '@ionic/angular';
-import { ContractService } from '../../../../../../services';
+import { ContractService, AuthService,UserService } from '../../../../../../services';
 
 @Component({
   selector: 'app-contracts-view',
@@ -11,12 +11,23 @@ import { ContractService } from '../../../../../../services';
 export class ContractsViewPage implements OnInit {
   id: string;
   contract: any;
+  role: string;
+
   constructor(
     private _ar: ActivatedRoute,
     private _loadingController: LoadingController,
     private _contractServices: ContractService,
+    private _userServices: UserService,
+    private _authServices: AuthService,
     ) {
-      this.contract = {}; 
+      this.contract = {};
+      this._authServices.stateUser().then(resState => {
+        resState.subscribe(res => {
+          if (res) {
+            this.getDataUser(res.uid);
+          }
+        });
+      }); 
     }
 
   ngOnInit() {
@@ -36,5 +47,26 @@ export class ContractsViewPage implements OnInit {
       });
     });
     await loading.dismiss();
+  }
+
+  async getDataUser(uid: string) {
+    const loading = await this._loadingController.create();
+    await loading.present();
+    this._userServices.getById(uid).then(firebaseResponse => {
+      firebaseResponse.subscribe(userRef => {
+        this.role = userRef.data()['role'];
+        loading.dismiss();
+      }, () => {
+        loading.dismiss();
+      });
+    });
+  }
+
+  getRole(): boolean {
+    if (this.role == "Usuario") {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
