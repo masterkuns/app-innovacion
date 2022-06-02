@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services';
 
 @Component({
   selector: 'app-login',
@@ -11,14 +11,17 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class LoginPage implements OnInit {
   credentials: FormGroup;
+  role: string | void;
 
   constructor(
     private fb: FormBuilder,
     private loadingController: LoadingController,
     private alertController: AlertController,
     private authServices: AuthService,
-    private router: Router
-  ) { }
+    private router: Router,
+  ) {
+    this.role = '';
+   }
 
   ngOnInit() {
     this.credentials = this.fb.group({
@@ -54,11 +57,14 @@ export class LoginPage implements OnInit {
     const loading = await this.loadingController.create();
     await loading.present();
 
-    const user = await this.authServices.login(this.credentials.value);
+    const USER = await this.authServices.login(this.credentials.value);
+
+    //console.log(uid);
 
     await loading.dismiss();
-
-    if (user) {
+    
+    if (USER) {
+      //console.log(USER);
       this.router.navigateByUrl('/home', { replaceUrl: true });
     } else {
       this.showAlert('Login fallido', 'por favor intentalo nuevamente');

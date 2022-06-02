@@ -15,8 +15,12 @@
       <div>
         <ion-button expand="block" class="button-text-color-primary" type="button" [routerLink]="['/home/contracts']">Contratos
         </ion-button>
-        <ion-button expand="block" class="button-text-color-primary" type="button" [routerLink]="['/home/users']">Usuarios
-        </ion-button>
+        <div *ngIf="getRole(); else admin"></div>
+        <ng-template #admin>
+            <ion-button expand="block" class="button-text-color-primary" type="button" [routerLink]="['/home/users']">Usuarios
+            </ion-button>
+        </ng-template>
+
         <!-- 
         <ion-button expand="block" class="button-text-color-primary" type="button" [routerLink]="['/registration']">Editar
           Perfil

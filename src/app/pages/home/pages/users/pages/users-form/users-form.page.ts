@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { PickerController } from '@ionic/angular';
-import { UserService } from '../../../../../../services';
+import { AuthService, UserService } from '../../../../../../services';
 import { User } from '../../../../../../models';
 import { ActivatedRoute } from '@angular/router';
 
@@ -25,6 +25,7 @@ export class UsersFormPage implements OnInit {
     private alertController: AlertController,
     private router: Router,
     private _userServices: UserService,
+    private _authService: AuthService,
     private _ar: ActivatedRoute,
   ) { 
     this.title = 'Nuevo usuario';
@@ -69,7 +70,13 @@ export class UsersFormPage implements OnInit {
       role: this.userForm.value.role,
     };
 
-    const USER = await this._userServices.create(data);
+    // crea usuario en Authentication firebase 
+    const infoUser = await this._authService.register(data);
+
+    const ID = infoUser.user.uid;
+    
+    // crea usuario en Firestore Database 
+    const USER = await this._userServices.create(data, ID);
 
     await loading.dismiss();
 
@@ -78,6 +85,7 @@ export class UsersFormPage implements OnInit {
     } else {
       this.showAlert('Registro fallido', 'por favor intentalo nuevamente');
     }
+    
   }
 
   async getUser(): Promise<void> {
@@ -116,5 +124,4 @@ export class UsersFormPage implements OnInit {
       this.router.navigateByUrl('/home/users/list', { replaceUrl: true });
     });
   }
-
 }

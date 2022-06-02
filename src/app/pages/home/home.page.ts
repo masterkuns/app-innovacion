@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController } from '@ionic/angular';
+import { UserService } from 'src/app/services';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -9,21 +10,54 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage {
-  profile = null;
+  role: string;
 
   constructor(
-    private loadingController: LoadingController,
+    private _loadingController: LoadingController,
     private alertController: AlertController,
-    private authServices: AuthService,
-    private router: Router
-  ) { }
+    private _authServices: AuthService,
+    private _userServices: UserService,
+    private _router: Router
+  ) { 
+      this._authServices.stateUser().then(resState => {
+        resState.subscribe(res => {
+          if (res) {
+            //console.log("logueado");
+            //console.log(res);
+            this.getDataUser(res.uid);
+          } else {
+            //console.log("no logueado");
+          }
+        });
+      });
+  }
+  
 
   ngOnInit() {
   }
 
   async logout(){
-    await this.authServices.logout();
-    this.router.navigateByUrl('/', { replaceUrl: true });
+    await this._authServices.logout();
+    this._router.navigateByUrl('/', { replaceUrl: true });
+  }
+
+  async getDataUser(uid: string){
+    const loading = await this._loadingController.create();
+    await loading.present();
+    await this._userServices.getById(uid).then(firebaseResponse => {
+      firebaseResponse.subscribe(userRef => {
+        this.role = userRef.data()['role'];
+      });
+    });
+    await loading.dismiss();
+  }
+
+   getRole(): boolean {
+    if(this.role == "Usuario"){
+      return true;
+    } else { 
+      return false;
+    }
   }
 
 }
